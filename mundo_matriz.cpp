@@ -1,13 +1,17 @@
 #include<iostream>
+#include<stdlib.h>
+#include<time.h>
 
 using namespace std;
 
-int i=0,j=0,f=20,c=20,n=0,m=0;
+int i=0,j=0,f=100,c=100,n=-1,m=-1;
 int mat[100][100];
 
 void Start(){
 
   system("clear");
+
+  srand(time(NULL));
 
   for(i=0;i<f;i++){
     for(j=0;j<c;j++){
@@ -27,6 +31,53 @@ void mostrarMatriz(){
     cout<<"\t["<<mat[f][c]<<"]"; c++;
     if(c >= m){cout<<"\n\n\n"; f++; c = 0;}
   }
+}
+
+void ingresoDeDatos(bool fila, bool columna){
+
+  bool flag;
+
+  int f = 0, c = 0;
+
+  flag = false;
+
+  while(flag == false){
+
+    if(fila == false){
+      flag = true;
+    }
+    else{
+      if(f < 1 || f > 100){
+        f = -1;
+        cout<<"Inserte el numero de filas: "; cin>>f;
+      }
+      else{
+        n = f;
+        flag = true;
+      }
+    }
+
+  }
+
+  flag = false;
+
+  while(flag == false){
+
+    if(columna == false){
+      flag = true;
+    }
+    else{
+      if(c < 1 || c > 100){
+        c = -1;
+        cout<<"Inserte el numero de columnas: "; cin>>c;
+      }
+      else{
+        m = c;
+        flag = true;
+      }
+    }
+  }
+
 }
 
 void cambiarValor(){
@@ -77,8 +128,6 @@ void cambiarDimension(){
 
   int op = 0;
 
-  f=c=0;
-
   cout<<"\n\nDimension actual: "<<n<<"x"<<m;
 
   cout<<"\n\nOpciones: \n\t1 - Cambiar n filas. \n\t2 - Cambiar m columnas. \n\t3 - Cambiar ambos. \n\t4 - volver.";
@@ -87,18 +136,13 @@ void cambiarDimension(){
 
   switch(op){
     case 1:
-      cout<<"\n\nInserte el numero: "; cin>>f;
-      n = f;
+      ingresoDeDatos(true,false);
       break;
     case 2:
-      cout<<"\n\nInserte el numero: "; cin>>c;
-      m = c;
+      ingresoDeDatos(false,true);
       break;
     case 3:
-      cout<<"\n\nInserte el numero de filas: "; cin>>f;
-      cout<<"\n\nInserte el numero de columnas: "; cin>>c;
-      n = f;
-      m = c;
+      ingresoDeDatos(true,true);
       break;
     case 4:
       break;
@@ -117,6 +161,16 @@ void chiste(){
 
 }
 
+void aleatorios(){
+
+  for(i=0;i<n;i++){
+    for(j=0;j<m;j++){
+      mat[i][j] = rand() % 9 + 1;
+    }
+  }
+
+}
+
 void menu(int op){
 
   int bk = 0;
@@ -125,7 +179,6 @@ void menu(int op){
 
     case 0:
       system("clear");
-      cout<<"Fin del programa.\n\n";
       break;
 
     case 1:
@@ -181,14 +234,22 @@ int main(){
 
   f=c=0;
 
-  cout<<"Inserte el numero de filas: "; cin>>n;
-  cout<<"Inserte el numero de columnas: "; cin>>m;
+  cout<<"\t    Menu de Opciones \n\tCreado por nachengue007 \n\tgithub.com/nachengue007 \n\n Version 2.0\n\n";
+
+  ingresoDeDatos(true,true);
+
+  cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - 0. \n\nOpcion: ";
+  cin>>op;
+
+  if(op == 1){
+    aleatorios();
+  }
 
   do{
     op = 0;
     system("clear");
 
-    cout<<"\t    Menu de Opciones \n\tCreado por nachengue007 \n\tgithub.com/nachengue007 \n\n Version 1.0";
+    cout<<"\t    Menu de Opciones \n\tCreado por nachengue007 \n\tgithub.com/nachengue007 \n\n Version 2.0";
     cout<<"\n\n1 - Mostrar matriz.";
     cout<<"\n2 - Cambiar valor de casilla.";
     cout<<"\n3 - Eliminar el valor de una casilla.";
