@@ -1,11 +1,24 @@
+/*
+   __  __                 _         __  __       _        _
+  |  \/  |               | |       |  \/  |     | |      (_)
+  | \  / |_   _ _ __   __| | ___   | \  / | __ _| |_ _ __ _ ____
+  | |\/| | | | | '_ \ / _` |/ _ \  | |\/| |/ _` | __| '__| |_  /
+  | |  | | |_| | | | | (_| | (_) | | |  | | (_| | |_| |  | |/ /
+  |_|  |_|\__,_|_| |_|\__,_|\___/  |_|  |_|\__,_|\__|_|  |_/___|
+
+  v2.23 Alpha
+
+*/
+
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
+#define MAX_NUM 100 // NO PONER 80 PORQUE TIRA UNA VIOLACION DE SEGMENTO
 
 using namespace std;
 
-int i=0,j=0,f=100,c=100,n=-1,m=-1;
-int mat[100][100];
+int i=0,j=0,f=MAX_NUM,c=MAX_NUM,n=-1,m=-1;
+int mat[MAX_NUM][MAX_NUM];
 
 void Start(){
 
@@ -33,6 +46,21 @@ void mostrarMatriz(){
   }
 }
 
+void aleatorios(int op){
+
+  if(op == 1){
+    for(i=0;i<n;i++){
+      for(j=0;j<m;j++){
+        mat[i][j] = rand() % 9 + 1;
+      }
+    }
+  }
+  if(op == 0){
+    mat[f][c] = rand() % 9 + 1;
+  }
+
+}
+
 void ingresoDeDatos(bool fila, bool columna){
 
   bool flag;
@@ -47,7 +75,7 @@ void ingresoDeDatos(bool fila, bool columna){
       flag = true;
     }
     else{
-      if(f < 1 || f > 100){
+      if(f < 1 || f > MAX_NUM){
         f = -1;
         cout<<"Inserte el numero de filas: "; cin>>f;
       }
@@ -67,7 +95,7 @@ void ingresoDeDatos(bool fila, bool columna){
       flag = true;
     }
     else{
-      if(c < 1 || c > 100){
+      if(c < 1 || c > MAX_NUM){
         c = -1;
         cout<<"Inserte el numero de columnas: "; cin>>c;
       }
@@ -82,7 +110,7 @@ void ingresoDeDatos(bool fila, bool columna){
 
 void cambiarValor(){
 
-  int val = 0;
+  int val = 0, op = 0;
   f=n+33;
   c=m+33;
 
@@ -100,9 +128,18 @@ void cambiarValor(){
     cout<<"\nInserte la columna: "; cin>>c;
   }while(c > m-1);
 
-  cout<<"\nInserte el nuevo valor: "; cin>>val;
+  cout<<"\n\nQuieres que: \n\t1 - El programa te de un numero aleatorio. \n\t2 - Elige usted. \n\nOpcion: ";
+  cin>>op;
 
-  mat[f][c] = val;
+  if(op == 1){
+    aleatorios(0);
+  }
+  else{
+    cout<<"\nInserte el nuevo valor: "; cin>>val;
+    mat[f][c] = val;
+  }
+
+  mostrarMatriz();
 
 }
 
@@ -112,11 +149,15 @@ void eliminarDato(){
 
   mostrarMatriz();
 
-  cout<<"\n\nEl indice empieza con 0 y termina con "<<n-1;
-  cout<<"\nInserte la fila: "; cin>>f;
+  do{
+    cout<<"\n\nEl indice empieza con 0 y termina con "<<n-1;
+    cout<<"\nInserte la fila: "; cin>>f;
+  }while(f > n-1);
 
-  cout<<"\n\nEl indice empieza con 0 y termina con "<<m-1;
-  cout<<"\nInserte la columna: "; cin>>c;
+  do{
+    cout<<"\n\nEl indice empieza con 0 y termina con "<<m-1;
+    cout<<"\nInserte la columna: "; cin>>c;
+  }while(c > m-1);
 
   mat[f][c] = 0;
 
@@ -155,20 +196,41 @@ void cambiarDimension(){
 
 }
 
+void traspuesta(){
+  int mT[m][n];
+
+  cout<<"\nMatriz normal: ";
+  mostrarMatriz();
+
+  cout<<"\nMatriz traspuesta\n\n";
+
+  for(i=0;i<m;i++){
+    for(j=0;j<n;j++){
+      mT[i][j] = mat[j][i];
+      cout<<"\t["<<mT[i][j]<<"]";
+    }
+  cout<<"\n\n\n";
+  }
+
+}
+
 void chiste(){
 
   cout<<"\n\nMe quede sin pastillas rojas y azules.\n\n";
 
 }
 
-void aleatorios(){
+void titulo(){
 
-  for(i=0;i<n;i++){
-    for(j=0;j<m;j++){
-      mat[i][j] = rand() % 9 + 1;
-    }
-  }
+  cout<<"\n\t __  __                 _         __  __       _        _";
+  cout<<"\n\t|  \\/  |               | |       |  \\/  |     | |      (_)";
+  cout<<"\n\t| \\  / |_   _ _ __   __| | ___   | \\  / | __ _| |_ _ __ _ ____";
+  cout<<"\n\t| |\\/| | | | | '_ \\ / _` |/ _ \\  | |\\/| |/ _` | __| '__| |_  /";
+  cout<<"\n\t| |  | | |_| | | | | (_| | (_) | | |  | | (_| | |_| |  | |/ /";
+  cout<<"\n\t|_|  |_|\\__,_|_| |_|\\__,_|\\___/  |_|  |_|\\__,_|\\__|_|  |_/___|\n\n";
 
+
+  cout<<"\n\nHecho en: patorjk.com/software/taag/#p=display&f=Big&t=Mundo Matriz\n";
 }
 
 void menu(int op){
@@ -210,7 +272,32 @@ void menu(int op){
       break;
 
     case 5:
+      cout<<"\nMatriz antigua:";
+      mostrarMatriz();
+      aleatorios(1);
+      cout<<"\nMatriz nueva:";
+      mostrarMatriz();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+    case 6:
+      traspuesta();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+    case 7:
       chiste();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+    case 8:
+      titulo();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
@@ -234,27 +321,39 @@ int main(){
 
   f=c=0;
 
-  cout<<"\t    Menu de Opciones \n\tCreado por nachengue007 \n\tgithub.com/nachengue007 \n\n Version 2.0\n\n";
+  cout<<"\t    Menu de Opciones";
+  cout<<"\n\tCreado por nachengue007";
+  cout<<"\n\tgithub.com/nachengue007";
+  cout<<"\n\n Version 2.23 Alpha\n\n";
 
   ingresoDeDatos(true,true);
 
-  cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - 0. \n\nOpcion: ";
-  cin>>op;
+  do{
+    cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - 0. \n\nOpcion: ";
+    cin>>op;
+  }while(op != 1 && op != 2);
 
   if(op == 1){
-    aleatorios();
+    aleatorios(1);
   }
 
   do{
     op = 0;
     system("clear");
 
-    cout<<"\t    Menu de Opciones \n\tCreado por nachengue007 \n\tgithub.com/nachengue007 \n\n Version 2.0";
+    cout<<"\t    Menu de Opciones";
+    cout<<"\n\tCreado por nachengue007";
+    cout<<"\n\tgithub.com/nachengue007";
+    cout<<"\n\n Version 2.23 Alpha";
+
     cout<<"\n\n1 - Mostrar matriz.";
     cout<<"\n2 - Cambiar valor de casilla.";
     cout<<"\n3 - Eliminar el valor de una casilla.";
     cout<<"\n4 - Cambiar la dimension de la matriz.";
-    cout<<"\n5 - Entrar a la Matrix.";
+    cout<<"\n5 - Reemplazar todas las valores aleatoriamente.";
+    cout<<"\n6 - Sacar matriz traspuesta.";
+    cout<<"\n7 - Entrar a la Matrix.";
+    cout<<"\n8 - Titulo.";
 
     cout<<"\n\n0 - Salir";
 
