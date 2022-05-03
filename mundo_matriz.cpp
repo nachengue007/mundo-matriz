@@ -6,7 +6,7 @@
   | |  | | |_| | | | | (_| | (_) | | |  | | (_| | |_| |  | |/ /
   |_|  |_|\__,_|_| |_|\__,_|\___/  |_|  |_|\__,_|\__|_|  |_/___|
 
-  v2.23 Alpha
+  v3.00 Alpha
 
 */
 
@@ -214,6 +214,42 @@ void traspuesta(){
 
 }
 
+void determinada2x2(){
+
+  int res = 0;
+
+  res = (mat[0][0]*mat[1][1]) - (mat[0][1]*mat[1][0]);
+
+  mostrarMatriz();
+
+  cout<<"\n\n\t|a| = ("<<mat[0][0]<<" * "<<mat[1][1]<<") - ("<<mat[0][1]<<" * "<<mat[1][0]<<") = "<<res<<"\n\n";
+}
+
+void determinada3x3(){
+  int res = 0;
+  res = (mat[0][0]*mat[1][1]*mat[2][2]) + (mat[1][2]*mat[0][1]*mat[2][0]) + mat[1][0]*mat[2][1]*mat[0][2] - (mat[0][2]*mat[1][1]*mat[2][0]) - (mat[1][0]*mat[0][1]*mat[2][2]) - (mat[0][0]*mat[2][1]*mat[1][2]);
+
+  mostrarMatriz();
+
+  cout<<"\n\n\t|a| = ";
+  cout<<"("<<mat[0][0]<<" * "<<mat[1][1]<<" * "<<mat[2][2]<<") + ("<<mat[1][2]<<" * "<<mat[0][1]<<" * "<<mat[2][0]<<") + ("<<mat[1][0]<<" * "<<mat[2][1]<<" * "<<mat[0][2]<<") - ";
+  cout<<"("<<mat[0][2]<<" * "<<mat[1][1]<<" * "<<mat[2][0]<<") - ("<<mat[1][0]<<" * "<<mat[0][1]<<" * "<<mat[2][2]<<") - ("<<mat[0][0]<<" * "<<mat[2][1]<<" * "<<mat[1][2]<<") = "<<res<<"\n\n";
+
+}
+
+void determinada(){
+  if(n == 2 && m == 2){
+    determinada2x2();
+  }
+  else if(n == 3 && m == 3){
+    determinada3x3();
+  }
+  else{
+    cout<<"\n\nLa matriz no cumple con los requisitos para ejecutar esta funcion, debe ser de 2x2 o de 3x3 unicamente.\n\n";
+  }
+
+}
+
 void chiste(){
 
   cout<<"\n\nMe quede sin pastillas rojas y azules.\n\n";
@@ -290,13 +326,21 @@ void menu(int op){
       break;
 
     case 7:
+      determinada();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+
+    case 8:
       chiste();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
       break;
 
-    case 8:
+    case 9:
       titulo();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
@@ -324,7 +368,7 @@ int main(){
   cout<<"\t    Menu de Opciones";
   cout<<"\n\tCreado por nachengue007";
   cout<<"\n\tgithub.com/nachengue007";
-  cout<<"\n\n Version 2.23 Alpha\n\n";
+  cout<<"\n\n Version 3.0 Alpha\n\n";
 
   ingresoDeDatos(true,true);
 
@@ -344,7 +388,7 @@ int main(){
     cout<<"\t    Menu de Opciones";
     cout<<"\n\tCreado por nachengue007";
     cout<<"\n\tgithub.com/nachengue007";
-    cout<<"\n\n Version 2.23 Alpha";
+    cout<<"\n\n Version 3.0 Alpha";
 
     cout<<"\n\n1 - Mostrar matriz.";
     cout<<"\n2 - Cambiar valor de casilla.";
@@ -352,8 +396,9 @@ int main(){
     cout<<"\n4 - Cambiar la dimension de la matriz.";
     cout<<"\n5 - Reemplazar todas las valores aleatoriamente.";
     cout<<"\n6 - Sacar matriz traspuesta.";
-    cout<<"\n7 - Entrar a la Matrix.";
-    cout<<"\n8 - Titulo.";
+    cout<<"\n7 - Sacar la determinante";
+    cout<<"\n8 - Entrar a la Matrix.";
+    cout<<"\n9 - Titulo.";
 
     cout<<"\n\n0 - Salir";
 
