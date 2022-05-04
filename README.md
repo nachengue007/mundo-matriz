@@ -15,7 +15,7 @@ Windows: system("cls");
 ```
 
 ## Edicion y Compilacion
-Para **Linux** recomiendo tener el g++ solamente y usar estos comandos:
+Para **Linux** recomiendo tener el g++ solamente y usar estos comandos (en mi caso utilizo Ubuntu):
 
 ```
 $ g++ mundo_matriz.cpp -o mundo_matriz
