@@ -6,7 +6,7 @@
   | |  | | |_| | | | | (_| | (_) | | |  | | (_| | |_| |  | |/ /
   |_|  |_|\__,_|_| |_|\__,_|\___/  |_|  |_|\__,_|\__|_|  |_/___|
 
-  v3.00 Alpha
+  v3.11 Alpha
 
 */
 
@@ -48,6 +48,9 @@ void mostrarMatriz(){
 
 void aleatorios(int op){
 
+  if(op == 0){
+    mat[f][c] = rand() % 9 + 1;
+  }
   if(op == 1){
     for(i=0;i<n;i++){
       for(j=0;j<m;j++){
@@ -55,9 +58,20 @@ void aleatorios(int op){
       }
     }
   }
-  if(op == 0){
-    mat[f][c] = rand() % 9 + 1;
+
+}
+
+void ingresoDeValores(){
+
+  cout<<"\n\n";
+
+  for(i = 0; i<n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"["<<i<<"]["<<j<<"] = "; cin>>mat[i][j];
+    }
   }
+
+  mostrarMatriz();
 
 }
 
@@ -107,6 +121,8 @@ void ingresoDeDatos(bool fila, bool columna){
   }
 
 }
+
+
 
 void cambiarValor(){
 
@@ -308,6 +324,13 @@ void menu(int op){
       break;
 
     case 5:
+      ingresoDeValores();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+    case 6:
       cout<<"\nMatriz antigua:";
       mostrarMatriz();
       aleatorios(1);
@@ -318,14 +341,14 @@ void menu(int op){
       }
       break;
 
-    case 6:
+    case 7:
       traspuesta();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
       break;
 
-    case 7:
+    case 8:
       determinada();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
@@ -333,14 +356,14 @@ void menu(int op){
       break;
 
 
-    case 8:
+    case 9:
       chiste();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
       break;
 
-    case 9:
+    case 10:
       titulo();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
@@ -368,15 +391,18 @@ int main(){
   cout<<"\t    Menu de Opciones";
   cout<<"\n\tCreado por nachengue007";
   cout<<"\n\tgithub.com/nachengue007";
-  cout<<"\n\n Version 3.0 Alpha\n\n";
+  cout<<"\n\n Version 3.11 Alpha\n\n";
 
   ingresoDeDatos(true,true);
 
   do{
-    cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - 0. \n\nOpcion: ";
+    cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - Determinas los Valores. \n\t3 - 0. \n\nOpcion: ";
     cin>>op;
   }while(op != 1 && op != 2);
 
+  if(op == 2){
+    ingresoDeValores();
+  }
   if(op == 1){
     aleatorios(1);
   }
@@ -388,17 +414,18 @@ int main(){
     cout<<"\t    Menu de Opciones";
     cout<<"\n\tCreado por nachengue007";
     cout<<"\n\tgithub.com/nachengue007";
-    cout<<"\n\n Version 3.0 Alpha";
+    cout<<"\n\n Version 3.11 Alpha";
 
     cout<<"\n\n1 - Mostrar matriz.";
     cout<<"\n2 - Cambiar valor de casilla.";
     cout<<"\n3 - Eliminar el valor de una casilla.";
     cout<<"\n4 - Cambiar la dimension de la matriz.";
-    cout<<"\n5 - Reemplazar todas las valores aleatoriamente.";
-    cout<<"\n6 - Sacar matriz traspuesta.";
-    cout<<"\n7 - Sacar la determinante";
-    cout<<"\n8 - Entrar a la Matrix.";
-    cout<<"\n9 - Titulo.";
+    cout<<"\n5 - Reemplazar todos los valores a eleccion";
+    cout<<"\n6 - Reemplazar todas los valores aleatoriamente.";
+    cout<<"\n7 - Sacar matriz traspuesta.";
+    cout<<"\n8 - Sacar la determinante";
+    cout<<"\n9 - Entrar a la Matrix.";
+    cout<<"\n10 - Titulo.";
 
     cout<<"\n\n0 - Salir";
 
