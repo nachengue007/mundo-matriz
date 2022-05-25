@@ -6,7 +6,7 @@
   | |  | | |_| | | | | (_| | (_) | | |  | | (_| | |_| |  | |/ /
   |_|  |_|\__,_|_| |_|\__,_|\___/  |_|  |_|\__,_|\__|_|  |_/___|
 
-  v3.11 Alpha
+  v4.0 Alpha
 
 */
 
@@ -26,6 +26,8 @@ void Start(){
 
   srand(time(NULL));
 
+  setlocale(LC_CTYPE, "Spanish");
+
   for(i=0;i<f;i++){
     for(j=0;j<c;j++){
       mat[i][j] = 0;
@@ -40,9 +42,12 @@ void mostrarMatriz(){
 
   f=c=0;
   cout<<"\n\n";
-  while(f < n){
-    cout<<"\t["<<mat[f][c]<<"]"; c++;
-    if(c >= m){cout<<"\n\n\n"; f++; c = 0;}
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"\t["<<mat[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
   }
 }
 
@@ -61,7 +66,7 @@ void aleatorios(int op){
 
 }
 
-void ingresoDeValores(){
+void ingresoDeValores(bool d){
 
   cout<<"\n\n";
 
@@ -71,7 +76,9 @@ void ingresoDeValores(){
     }
   }
 
-  mostrarMatriz();
+  if(d){
+    mostrarMatriz();
+  }
 
 }
 
@@ -91,7 +98,7 @@ void ingresoDeDatos(bool fila, bool columna){
     else{
       if(f < 1 || f > MAX_NUM){
         f = -1;
-        cout<<"Inserte el numero de filas: "; cin>>f;
+        cout<<"Inserte el nÃºmero de filas: "; cin>>f;
       }
       else{
         n = f;
@@ -111,7 +118,7 @@ void ingresoDeDatos(bool fila, bool columna){
     else{
       if(c < 1 || c > MAX_NUM){
         c = -1;
-        cout<<"Inserte el numero de columnas: "; cin>>c;
+        cout<<"Inserte el nÃºmero de columnas: "; cin>>c;
       }
       else{
         m = c;
@@ -266,6 +273,172 @@ void determinada(){
 
 }
 
+void suma(){
+  int matdos[n][m];
+  int matres[n][m];
+
+  for(i = 0; i<n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"["<<i<<"]["<<j<<"] = "; cin>>matdos[i][j];
+    }
+  }
+
+  mostrarMatriz();
+
+  cout<<"\n\t\t +\n\n\n";
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"\t["<<matdos[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
+  }
+
+  cout<<"\n\t\t =\n\n\n";
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      matres[i][j] = mat[i][j] + matdos[i][j];
+      cout<<"\t["<<matres[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
+  }
+
+}
+
+void resta(){
+  int matdos[n][m];
+  int matres[n][m];
+
+  for(i = 0; i<n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"["<<i<<"]["<<j<<"] = "; cin>>matdos[i][j];
+    }
+  }
+
+  mostrarMatriz();
+
+  cout<<"\n\t\t -\n\n\n";
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"\t["<<matdos[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
+  }
+
+  cout<<"\n\t\t =\n\n\n";
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      matres[i][j] = mat[i][j] - matdos[i][j];
+      cout<<"\t["<<matres[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
+  }
+
+}
+
+void multiplicacion(){
+  int f = 0, c = 0;
+
+  bool flag = false;
+
+  while(flag == false){
+    if(f < 1 || f > MAX_NUM){
+      f = -1;
+      cout<<"Inserte el nÃºmero de filas: "; cin>>f;
+    }
+    else{
+      flag = true;
+    }
+  }
+
+  flag = false;
+
+  while(flag == false){
+    if(c < 1 || c > MAX_NUM){
+      c = -1;
+      cout<<"Inserte el nÃºmero de columnas: "; cin>>c;
+    }
+    else{
+      flag = true;
+    }
+  }
+
+  flag = false;
+
+  if(m == f){
+    flag == false;
+    cout<<"\nPuede hacerse la multiplicación.";
+  }
+  else{
+    cout<<"\nNo se puede hacer la multiplicación debido a que la cantidad de columnas de la matriz principal no tiene el mismo valor de la cantidad de filas de la matriz que creaste para esta función";
+  }
+
+  int matdos[f][c];
+  int matres[f][m];
+
+  for(i = 0; i<n; i++){
+    for(j = 0; j < m; j++){
+      cout<<"["<<i<<"]["<<j<<"] = "; cin>>matdos[i][j];
+    }
+  }
+
+}
+
+void escalar(){
+  int k = 0;
+  int matres[n][m];
+
+  cout<<"\nK = "; cin>>k;
+
+  cout<<"\n\t\t"<<k<<"\n\n\n";
+
+  cout<<"\n\t\t +\n\n\n";
+
+  mostrarMatriz();
+
+  cout<<"\n\t\t =\n\n\n";
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      matres[i][j] = k * mat[i][j];
+      cout<<"\t["<<matres[i][j]<<"]";
+    }
+    cout<<"\n\n\n";
+  }
+
+}
+
+void operaciones(){
+  int op = -1;
+
+  cout<<"\n\n1 - Suma.";
+  cout<<"\n2 - Resta.";
+  cout<<"\n3 - Multiplicacion.";
+  cout<<"\n4 - Escalar (distributiva en matrices).";
+  cout<<"\n\n0 - Volver.";
+
+  cout<<"\n\nOpcion: "; cin>>op;
+
+  switch(op){
+    case 1:
+      suma();
+      break;
+    case 2:
+      resta();
+      break;
+    case 3:
+      multiplicacion();
+      cout<<"\nEn Construccion\n\n";
+      break;
+    case 4:
+      escalar();
+      break;
+  }
+}
+
 void chiste(){
 
   cout<<"\n\nMe quede sin pastillas rojas y azules.\n\n";
@@ -324,7 +497,7 @@ void menu(int op){
       break;
 
     case 5:
-      ingresoDeValores();
+      ingresoDeValores(true);
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
@@ -357,13 +530,20 @@ void menu(int op){
 
 
     case 9:
-      chiste();
+      operaciones();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
       }
       break;
 
     case 10:
+      chiste();
+      while(bk != 1){
+        cout<<"\n1 para volver: "; cin>>bk;
+      }
+      break;
+
+    case 11:
       titulo();
       while(bk != 1){
         cout<<"\n1 para volver: "; cin>>bk;
@@ -398,10 +578,10 @@ int main(){
   do{
     cout<<"\n\nQuieres que los valores inicien en: \n\t1 - Numero Aleatorio. \n\t2 - Determinas los Valores. \n\t3 - 0. \n\nOpcion: ";
     cin>>op;
-  }while(op != 1 && op != 2);
+  }while(op != 1 && op != 2 && op != 3);
 
   if(op == 2){
-    ingresoDeValores();
+    ingresoDeValores(false);
   }
   if(op == 1){
     aleatorios(1);
@@ -424,8 +604,9 @@ int main(){
     cout<<"\n6 - Reemplazar todas los valores aleatoriamente.";
     cout<<"\n7 - Sacar matriz traspuesta.";
     cout<<"\n8 - Sacar la determinante";
-    cout<<"\n9 - Entrar a la Matrix.";
-    cout<<"\n10 - Titulo.";
+    cout<<"\n9 - Realizar operaciones matematicas.";
+    cout<<"\n10 - Entrar a la Matrix.";
+    cout<<"\n11 - Titulo.";
 
     cout<<"\n\n0 - Salir";
 
